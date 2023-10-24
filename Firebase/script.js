@@ -31,6 +31,7 @@ const db = getFirestore(app);
 /*===========================================================*/
 
 async function inserirCliente() {
+
     let valor_nome = document.querySelector('#inserir-nome').value;
     let valor_email = document.querySelector('#inserir-email').value;
 
@@ -46,15 +47,15 @@ async function inserirCliente() {
 
         table.row.add([
             valor_nome, valor_email,
-            `<button type="button" class="btn btn-info" data-bs-toggle="modal"
+            `<button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
                     data-bs-target="#consultarModal">
                     View
                 </button>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
                     data-bs-target="#alterarModal">
                     Modify
                 </button>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                     data-bs-target="#excluirModal">
                     Delete
                 </button>`
@@ -100,7 +101,12 @@ async function carregarDados() {
     );
 
     const btnsConsultar = Array.from(document.getElementsByClassName("btn-outline-info"));
+    const btnsDeletar = Array.from(document.getElementsByClassName("btn-outline-danger"));
+    const btnsAlterar = Array.from(document.getElementsByClassName("btn-outline-warning"));
+
     btnsConsultar.forEach(btn => { btn.addEventListener('click', ConsultarCliente) });
+    btnsDeletar.forEach(btn => { btn.addEventListener('click', DeletarCliente) });
+    btnsAlterar.forEach(btn => { btn.addEventListener('click', AlterarCliente) });
 }
 
 async function ConsultarCliente() {
@@ -114,15 +120,57 @@ async function ConsultarCliente() {
     }
 }
 
-async function Alterar() {
-    //ARRUMAR
+async function DeletarCliente() {
+    const id = this.value;
+    const consulta = doc(db, "cliente", id);
+    const resultado = await getDoc(consulta);
+
+    if (resultado.exists()) {
+        document.getElementById("deletar-nome").innerHTML = resultado.data().nome;
+        document.getElementById("deletar-email").innerHTML = resultado.data().email;
+    }
 }
 
-async function Deletar() {
-    //ARRUMAR
+async function AlterarCliente() {
+    const id = this.value;
+    const consulta = doc(db, "cliente", id);
+    const resultado = await getDoc(consulta);
+
+    if (resultado.exists()) {
+        document.getElementById("alterar-nome").value = resultado.data().nome;
+        document.getElementById("alterar-email").value = resultado.data().email;
+    }
+}
+
+async function salvarAlteracaoCliente() {
+
+    let valor_nome = document.querySelector('#alterar-nome').value;
+    let valor_email = document.querySelector('#alterar-email').value;
+
+    try {
+        await addDoc(collection(db, "cliente"),
+            {
+                nome: valor_nome,
+                email: valor_email
+            });
+
+        const toast = new bootstrap.Toast(document.querySelector("#toastInserirSucesso"));
+        toast.show();
+
+    }
+    catch (e) {
+        const toast = new bootstrap.Toast(document.querySelector("#toastInserirErro"));
+        toast.show();
+    }
+
+    document.querySelector('#alterar-nome').value = "";
+    document.querySelector('#alterar-email').value = "";
+
 }
 
 document.querySelector("#btnInserirCliente").addEventListener("click", inserirCliente);
+document.querySelector("#btnAlterarCliente").addEventListener("click", salvarAlteracaoCliente);
+
 document.addEventListener("DOMContentLoaded", function (e) {
     carregarDados();
 });
