@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Firebase CRUD</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark align-middle">
+
+            <a class="navbar-brand" href="#">Navbar</a>
+
+            <button class="navbar-toggler" type="button"data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="client.html">Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="product.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="provider.html">Provider</a>
+                    </li>
+                </ul>
+
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+
+            </div>
+        </nav>
+
+        <!--===========================================================================-->
+
+        <main class="container">
+
+            <h3 class="mt-5">Products</h3>
+
+            <hr>
+
+            <button type="button" class="btn btn-success mt-1 mb-4" data-bs-toggle="modal" data-bs-target="#inserirModal">
+                New Register
+            </button>
+
+            <table class="table table-striped table-hover mt-3 align-middle" id="tabela">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">...</th>
+                        <th scope="col">...</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+
+            </table>
+        </main>
+
+        <!--===========================================================================-->
+
+        <!--===================-->
+        <!--Inserir um registro-->
+        <!--===================-->
+
+        <div class="modal fade" id="inserirModal" tabindex="-1"
+            aria-labelledby="inserirModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="inserirModalLabel">New
+                            Register</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-nome" class="form-label">Product Name:</label>
+                                <input type="text" id="inserir-nome" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-descricao" class="form-label">Product Description:</label>
+                                <input type="text" id="inserir-descricao" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-value" class="form-label">Product Value:</label>
+                                <input type="text" id="inserir-value" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-minStock" class="form-label">Minimum Stock:</label>
+                                <input type="text" id="inserir-minStock" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-maxStock" class="form-label">Maximum Stock:</label>
+                                <input type="text" id="inserir-maxStock" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="btnInserirProduto" type="button" class="btn btn-success" data-bs-dismiss="modal">
+                            Save
+                        </button>
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--====================-->
+        <!--Sucesso ao registrar-->
+        <!--====================-->
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastInserirSucesso" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <strong class="me-auto">Response</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <p>Successfully registered!</p>
+                </div>
+            </div>
+        </div>
+
+        <!--=================-->
+        <!--Erro ao registrar-->
+        <!--=================-->
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastInserirErro" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <span class="material-symbols-outlined">
+                        error
+                    </span>
+                    <strong class="me-auto">Response</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <p>Error when entering new Registration!</p>
+                </div>
+            </div>
+        </div>
+
+        <!--===========================================================================-->
+
+        <!--=====================-->
+        <!--Consultar um Registro-->
+        <!--=====================-->
+
+        <div class="modal fade" id="consultarModal" tabindex="-1" aria-labelledby="consultarModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="consultarModalLabel">Consult
+                            Registry</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" value="" id="consultar-id"/>
+                        <div class="row">
+                            <div class="col">
+                                <p>Product name:</p>
+                                <p id="consultar-nome">Name</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Product Description:</p>
+                                <p id="consultar-descricao">Description</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Product Value:</p>
+                                <p id="consultar-value">Value</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Minimum Stock:</p>
+                                <p id="consultar-minStock">Minimum</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Maximum Stock:</p>
+                                <p id="consultar-maxStock">Maximum</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--===========================================================================-->
+
+        <!--===================-->
+        <!--Alterar um Registro-->
+        <!--===================-->
+
+        <div class="modal fade" id="alterarModal" tabindex="-1" aria-labelledby="alterarModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="alterarModalLabel">Change registry</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" value="" id="alterar-id">
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-nome" class="form-label">Product name:</label>
+                                <input type="text" id="alterar-nome" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-descricao" class="form-label">Product Description:</label>
+                                <input type="text" id="alterar-descricao" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="btnAlterarProduto">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--==================-->
+        <!--Sucesso ao alterar-->
+        <!--==================-->
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastAlterarSucesso" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <strong class="me-auto">Response</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <p>successful change!</p>
+                </div>
+            </div>
+        </div>
+
+        <!--===============-->
+        <!--Erro ao alterar-->
+        <!--===============-->
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastAlterarErro" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <span class="material-symbols-outlined">
+                        error
+                    </span>
+                    <strong class="me-auto">Response</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <p>Error when change!</p>
+                </div>
+            </div>
+        </div>
+
+        <!--===========================================================================-->
+
+        <!--===================-->
+        <!--Deletar um Registro-->
+        <!--===================-->
+
+        <div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="excluirModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="excluirModalLabel">Delete
+                            Register</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" value="" id="deletar-id"/>
+                        <div class="row">
+                            <div class="col">
+                                <p>Product Name:</p>
+                                <p id="deletar-nome">Name</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Product Description:</p>
+                                <p id="deletar-descricao">Description</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <p class="text-danger">Do you really want to delete this Register?</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btnDeletarProduto">Yes</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--==================-->
+        <!--Sucesso ao deletar-->
+        <!--==================-->
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastInserirSucesso" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <strong class="me-auto">Response</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <p>Successfully unregistering!</p>
+                </div>
+            </div>
+        </div>
+
+        <!--===============-->
+        <!--Erro ao deletar-->
+        <!--===============-->
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastDeletarErro" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <span class="material-symbols-outlined">
+                        error
+                    </span>
+                    <strong class="me-auto">Response</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <p>Error when unregistering!</p>
+                </div>
+            </div>
+        </div>
+
+        <!--===========================================================================-->
+
+        <!--=========-->
+        <!--Bootstrap-->
+        <!--=========-->
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+        <!--======-->
+        <!--Script-->
+        <!--======-->
+
+        <script type="module" src="scriptProduct.js"></script>
+
+    </body>
+</html>
