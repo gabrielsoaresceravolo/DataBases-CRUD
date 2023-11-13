@@ -59,8 +59,8 @@
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Value</th>
-                        <th scope="col">...</th>
-                        <th scope="col">...</th>
+                        <th scope="col">Maximum Stock</th>
+                        <th scope="col">Minimum Stock</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -84,8 +84,7 @@
                 <div class="modal-content">
 
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="inserirModalLabel">New
-                            Register</h1>
+                        <h1 class="modal-title fs-5" id="inserirModalLabel">New Register</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
@@ -104,20 +103,20 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="inserir-value" class="form-label">Product Value:</label>
-                                <input type="text" id="inserir-value" class="form-control" />
+                                <label for="inserir-valor" class="form-label">Product Value:</label>
+                                <input type="text" id="inserir-valor" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="inserir-minStock" class="form-label">Minimum Stock:</label>
-                                <input type="text" id="inserir-minStock" class="form-control" />
+                                <label for="inserir-maxEstoque" class="form-label">Maximum Stock:</label>
+                                <input type="text" id="inserir-maxEstoque" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="inserir-maxStock" class="form-label">Maximum Stock:</label>
-                                <input type="text" id="inserir-maxStock" class="form-control" />
+                                <label for="inserir-minEstoque" class="form-label">Minimum Stock:</label>
+                                <input type="text" id="inserir-minEstoque" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -188,7 +187,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" value="" id="consultar-id"/>
+                        <input type="hidden" value="" id="consultar-id-Produto"/>
                         <div class="row">
                             <div class="col">
                                 <p>Product name:</p>
@@ -204,19 +203,19 @@
                         <div class="row">
                             <div class="col">
                                 <p>Product Value:</p>
-                                <p id="consultar-value">Value</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <p>Minimum Stock:</p>
-                                <p id="consultar-minStock">Minimum</p>
+                                <p id="consultar-valor">Value</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <p>Maximum Stock:</p>
                                 <p id="consultar-maxStock">Maximum</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Minimum Stock:</p>
+                                <p id="consultar-minStock">Minimum</p>
                             </div>
                         </div>
                     </div>
@@ -240,8 +239,9 @@
                         <h1 class="modal-title fs-5" id="alterarModalLabel">Change registry</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    
                     <div class="modal-body">
-                        <input type="hidden" value="" id="alterar-id">
+                        <input type="hidden" value="" id="alterar-id-Produto">
                         <div class="row">
                             <div class="col">
                                 <label for="alterar-nome" class="form-label">Product name:</label>
@@ -252,6 +252,24 @@
                             <div class="col">
                                 <label for="alterar-descricao" class="form-label">Product Description:</label>
                                 <input type="text" id="alterar-descricao" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-valor" class="form-label">Product Value:</label>
+                                <input type="text" id="alterar-valor" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-maxEstoque" class="form-label">Maximum Stock:</label>
+                                <input type="text" id="alterar-maxEstoque" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-minEstoque" class="form-label">Minimum Stock:</label>
+                                <input type="text" id="alterar-minEstoque" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -314,7 +332,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" value="" id="deletar-id"/>
+                        <input type="hidden" value="" id="deletar-id-Produto"/>
                         <div class="row">
                             <div class="col">
                                 <p>Product Name:</p>
@@ -325,6 +343,24 @@
                             <div class="col">
                                 <p>Product Description:</p>
                                 <p id="deletar-descricao">Description</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Product Value:</p>
+                                <p id="deletar-valor">Value</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Maximum Stock:</p>
+                                <p id="deletar-maxEstoque">maximum</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Minimum Stock:</p>
+                                <p id="deletar-minEstoque">Minimum</p>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">

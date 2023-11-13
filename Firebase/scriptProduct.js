@@ -23,13 +23,19 @@ async function inserirProduto()
 
     let valor_nome = document.querySelector('#inserir-nome').value;
     let valor_descricao = document.querySelector('#inserir-descricao').value;
+    let valor_preco = document.querySelector('#inserir-valor').value;
+    let valor_maxEstoque = document.querySelector('#inserir-maxEstoque').value;
+    let valor_minEstoque = document.querySelector('#inserir-minEstoque').value;
 
     try 
     {
         await addDoc(collection(db, "produto"),
         {
             nome: valor_nome,
-            descricao: valor_descricao
+            descricao: valor_descricao,
+            preco: valor_preco,
+            maxEstoque: valor_maxEstoque,
+            minEstoque: valor_minEstoque
         });
 
         const toast = new bootstrap.Toast(document.querySelector("#toastInserirSucesso"));
@@ -45,8 +51,11 @@ async function inserirProduto()
         toast.show();
     }
 
-    document.querySelector('#insert-nome').value = "";
-    document.querySelector('#insert-descricao').value = "";
+    document.querySelector('#inserir-nome').value = "";
+    document.querySelector('#inserir-descricao').value = "";
+    document.querySelector('#inserir-valor').value = "";
+    document.querySelector('#inserir-maxEstoque').value = "";
+    document.querySelector('#inserir-minEstoque').value = "";
 
 }
 
@@ -69,7 +78,7 @@ async function carregarDados()
     resultado.forEach(
         (dados) => {
             table.row.add([
-                dados.data().nome, dados.data().descricao,
+                dados.data().nome, dados.data().descricao, dados.data().preco, dados.data().maxEstoque, dados.data().minEstoque,
                 `<button value="${dados.id}" type="button" class="btn btn-outline-info" data-bs-toggle="modal"
                     data-bs-target="#consultarModal">
                     View
@@ -106,13 +115,14 @@ async function consultarProduto()
             url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
         },
     });
+
     const q = query(collection(db, "produto"));
     const resultado = await getDocs(q);
 
     resultado.forEach(
         (dados) => {
             table.row.add([
-                dados.data().nome, dados.data().descricao,
+                dados.data().nome, dados.data().descricao, dados.data().valor_preco, dados.data().valor_maxEstoque, dados.data().valor_minEstoque,
                 `<button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
                     data-bs-target="#consultarModal" value="${dados.id}">
                     View
@@ -149,15 +159,18 @@ async function deletarProduto()
 
     if (resultado.exists()) 
     {
-        document.getElementById("deletar-id").value = id;
+        document.getElementById("deletar-id-Produto").value = id;
         document.getElementById("deletar-nome").innerHTML = resultado.data().nome;
         document.getElementById("deletar-descricao").innerHTML = resultado.data().descricao;
+        document.getElementById("deletar-valor").innerHTML = resultado.data().preco;
+        document.getElementById("deletar-maxEstoque").innerHTML = resultado.data().maxEstoque;
+        document.getElementById("deletar-minEstoque").innerHTML = resultado.data().minEstoque;
     }
 }
 
 async function deletarProdutoBD()
 {
-    let id = document.getElementById("deletar-id").value;
+    let id = document.getElementById("deletar-id-Produto").value;
     try
     {
         await deleteDoc(doc(db, "produto", id));
@@ -184,21 +197,28 @@ async function alterarProduto()
 
     if (resultado.exists()) 
     {
-        document.getElementById("alterar-id").value = id;
-        document.getElementById("alterar-nome").value = resultado.data().nome;
-        document.getElementById("alterar-descricao").value = resultado.data().descricao;
+        document.getElementById("alterar-id-Produto").value = id;
+        document.getElementById("alterar-nome").innerHTML = resultado.data().nome;
+        document.getElementById("alterar-descricao").innerHTML = resultado.data().descricao;
+        document.getElementById("alterar-valor").innerHTML = resultado.data().preco;
+        document.getElementById("alterar-maxEstoque").innerHTML = resultado.data().maxEstoque;
+        document.getElementById("alterar-minEstoque").innerHTML = resultado.data().minEstoque;
     }
 }
 
 async function alterarProdutoBD()
 {
-    let id = document.getElementById("alterar-id").value;
+    let id = document.getElementById("alterar-id-Produto").value;
     let valor_nome = document.getElementById("alterar-nome").value;
     let valor_descricao = document.getElementById("alterar-descricao").value;
+    let valor_preco = document.getElementById("alterar-valor").value;
+    let valor_maxEstoque = document.getElementById("alterar-maxEstque").value;
+    let valor_minEstoque = document.getElementById("alterar-minEstque").value;
+    
     try
     {
         let produto = doc(db, "produto", id);
-        await updateDoc(produto, {nome: valor_nome, descricao: valor_descricao} );
+        await updateDoc(produto, {nome: valor_nome, descricao: valor_descricao, preco: valor_preco, maxEstoque: valor_maxEstoque, minEstoque: valor_minEstoque} );
         const toast = new bootstrap.Toast(document.getElementById("toastAlterarSucesso"));
         toast.show();
         table.rows().remove().draw();
@@ -226,6 +246,7 @@ document.querySelector("#btnDeletarProduto").addEventListener("click", deletarPr
 
 /*===========================================================*/
 
-document.addEventListener("DOMContentLoaded", function (e) {
+document.addEventListener("DOMContentLoaded", function (e) 
+{
     carregarDados();
 });

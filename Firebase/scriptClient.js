@@ -149,7 +149,7 @@ async function deletarCliente()
 
     if (resultado.exists()) 
     {
-        document.getElementById("deletar-id").value = id;
+        document.getElementById("deletar-id-Cliente").value = id;
         document.getElementById("deletar-nome").innerHTML = resultado.data().nome;
         document.getElementById("deletar-email").innerHTML = resultado.data().email;
     }
@@ -157,7 +157,7 @@ async function deletarCliente()
 
 async function deletarClienteBD()
 {
-    let id = document.getElementById("deletar-id").value;
+    let id = document.getElementById("deletar-id-Cliente").value;
     try
     {
         await deleteDoc(doc(db, "cliente", id));
@@ -184,7 +184,7 @@ async function alterarCliente()
 
     if (resultado.exists()) 
     {
-        document.getElementById("alterar-id").value = id;
+        document.getElementById("alterar-id-Cliente").value = id;
         document.getElementById("alterar-nome").value = resultado.data().nome;
         document.getElementById("alterar-email").value = resultado.data().email;
     }
@@ -192,7 +192,7 @@ async function alterarCliente()
 
 async function alterarClienteBD()
 {
-    let id = document.getElementById("alterar-id").value;
+    let id = document.getElementById("alterar-id-Cliente").value;
     let valor_nome = document.getElementById("alterar-nome").value;
     let valor_email = document.getElementById("alterar-email").value;
     try

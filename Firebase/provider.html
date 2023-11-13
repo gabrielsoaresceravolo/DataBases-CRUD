@@ -23,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="client.html">Client</a>
+                        <a class="nav-link" href="client.html">Clients</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="product.html">Products</a>
@@ -45,7 +45,7 @@
 
         <main class="container">
 
-            <h3 class="mt-5">Clients</h3>
+            <h3 class="mt-5">Providers</h3>
 
             <hr>
 
@@ -56,9 +56,16 @@
             <table class="table table-striped table-hover mt-3 align-middle" id="tabela">
                 <thead class="table-light">
                     <tr>
-                        <th scope="col">Name</th>
+                        <th scope="col">Fantasy Name</th>
+                        <th scope="col">CNPJ</th>
+                        <th scope="col">Responsible</th>
+                        <th scope="col">Corporate Reason</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Company Number</th>
+                        <th scope="col">City</th>
+                        <th scope="col">State</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Telephone</th>
                     </tr>
                 </thead>
 
@@ -77,7 +84,6 @@
         <div class="modal fade" id="inserirModal" tabindex="-1"
             aria-labelledby="inserirModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
-
                 <div class="modal-content">
 
                     <div class="modal-header">
@@ -88,26 +94,69 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col">
-                                <label for="inserir-nome" class="form-label">Client Name:</label>
+                                <label for="inserir-nome" class="form-label">Fantasy Name:</label>
                                 <input type="text" id="inserir-nome" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="inserir-email" class="form-label">Client Email:</label>
+                                <label for="inserir-CNPJ" class="form-label">CNPJ:</label>
+                                <input type="text" id="inserir-CNPJ" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-responsavel" class="form-label">Responsible:</label>
+                                <input type="text" id="inserir-responsavel" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-razao" class="form-label">Corporate Reason:</label>
+                                <input type="text" id="inserir-razao" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-endereco" class="form-label">Address:</label>
+                                <input type="text" id="inserir-endereco" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-numero" class="form-label">Company Number:</label>
+                                <input type="text" id="inserir-numero" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-cidade" class="form-label">City:</label>
+                                <input type="text" id="inserir-cidade" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-estado" class="form-label">State:</label>
+                                <input type="text" id="inserir-estado" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-email" class="form-label">Email:</label>
                                 <input type="text" id="inserir-email" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inserir-telefone" class="form-label">Telephone:</label>
+                                <input type="text" id="inserir-telefone" class="form-control" />
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button id="btnInserirCliente" type="button" class="btn btn-success" data-bs-dismiss="modal">
-                            Save
-                        </button>
-
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Close
-                        </button>
+                        <button id="btnInserirFornecedor" type="button" class="btn btn-success" data-bs-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
 
                 </div>
@@ -160,25 +209,76 @@
         <div class="modal fade" id="consultarModal" tabindex="-1" aria-labelledby="consultarModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
+
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="consultarModalLabel">Consult Registry</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <div class="modal-body">
-                        <input type="hidden" value="" id="consultar-id-Cliente"/>
+                        <input type="hidden" value="" id="consultar-id-Fornecedor"/>
                         <div class="row">
                             <div class="col">
-                                <p>Client Name:</p>
-                                <p id="consultar-nome">name</p>
+                                <p>Fantasy Name:</p>
+                                <p id="consultar-nome">Fantasy Name</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <p>Client Email:</p>
+                                <p>CNPJ:</p>
+                                <p id="consultar-CNPJ">CNPJ</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Responsible:</p>
+                                <p id="consultar-responsavel">Responsible</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Corporate Reason:</p>
+                                <p id="consultar-razao">Reason</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Address:</p>
+                                <p id="consultar-endereco">Address</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Company Number:</p>
+                                <p id="consultar-numero">Company Number</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>City:</p>
+                                <p id="consultar-cidade">City</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>State:</p>
+                                <p id="consultar-estado">State</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Email:</p>
                                 <p id="consultar-email">Email</p>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Telephone:</p>
+                                <p id="consultar-telefone">Telephone</p>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
@@ -195,27 +295,78 @@
         <div class="modal fade" id="alterarModal" tabindex="-1" aria-labelledby="alterarModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
+                    
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="alterarModalLabel">Change Registry</h1>
+                        <h1 class="modal-title fs-5" id="alterarModalLabel">Change registry</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <div class="modal-body">
-                        <input type="hidden" value="" id="alterar-id-Cliente">
+                        <input type="hidden" value="" id="alterar-id-Fornecedor">
                         <div class="row">
                             <div class="col">
-                                <label for="alterar-nome" class="form-label">Client Name:</label>
+                                <label for="alterar-nome" class="form-label">Fantasy Name:</label>
                                 <input type="text" id="alterar-nome" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="alterar-email" class="form-label">Client Email:</label>
+                                <label for="alterar-CNPJ" class="form-label">CNPJ:</label>
+                                <input type="text" id="alterar-CNPJ" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-responsavel" class="form-label">Responsible:</label>
+                                <input type="text" id="alterar-responsavel" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-razao" class="form-label">Corporate Reason:</label>
+                                <input type="text" id="alterar-razao" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-endereco" class="form-label">Address:</label>
+                                <input type="text" id="alterar-endereco" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-numero" class="form-label">Company Number:</label>
+                                <input type="text" id="alterar-numero" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-cidade" class="form-label">City:</label>
+                                <input type="text" id="alterar-cidade" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-estado" class="form-label">State:</label>
+                                <input type="text" id="alterar-estado" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-email" class="form-label">Email:</label>
                                 <input type="text" id="alterar-email" class="form-control" />
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="alterar-telefone" class="form-label">Telephone:</label>
+                                <input type="text" id="alterar-telefone" class="form-control" />
+                            </div>
+                        </div>
                     </div>
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="btnAlterarCliente">Save</button>
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="btnAlterarFornecedor">Save</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -267,30 +418,83 @@
         <div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="excluirModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
+
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="excluirModalLabel">Delete Register</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <div class="modal-body">
-                        <input type="hidden" value="" id="deletar-id-Cliente"/>
+                        <input type="hidden" value="" id="deletar-id-Fornecedor"/>
                         <div class="row">
                             <div class="col">
-                                <p>Client Name:</p>
-                                <p id="deletar-nome">Name</p>
+                                <p>Fantasy Name:</p>
+                                <p id="deletar-nome">Fantasy Name</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <p>Client Email:</p>
+                                <p>CNPJ:</p>
+                                <p id="deletar-CNPJ">CNPJ</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Responsible:</p>
+                                <p id="deletar-responsavel">Responsible</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Corporate Reason:</p>
+                                <p id="deletar-razao">Reason</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Address:</p>
+                                <p id="deletar-endereco">Address</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Company Number:</p>
+                                <p id="deletar-numero">Company Number</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>City:</p>
+                                <p id="deletar-cidade">City</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>State:</p>
+                                <p id="deletar-estado">State</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Email:</p>
                                 <p id="deletar-email">Email</p>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end">
-                            <p class="text-danger">Do you really want to delete this Register?</p>
+                        <div class="row">
+                            <div class="col">
+                                <p>Telephone:</p>
+                                <p id="deletar-telefone">Telephone</p>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="d-flex justify-content-end">
+                        <p class="text-danger">Do you really want to delete this Register?</p>
+                    </div>
+
+                    </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btnDeletarCliente">Yes</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btnDeletarFornecedor">Yes</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
                     </div>
                 </div>
@@ -349,7 +553,7 @@
         <!--Script-->
         <!--======-->
 
-        <script type="module" src="scriptClient.js"></script>
+        <script type="module" src="scriptProvider.js"></script>
 
     </body>
 </html>
