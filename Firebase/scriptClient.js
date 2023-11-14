@@ -34,8 +34,6 @@ async function inserirCliente()
 
         const toast = new bootstrap.Toast(document.querySelector("#toastInserirSucesso"));
         toast.show();
-        table.rows().remove().draw
-        table.destroy();
         carregarDados();
 
     }
@@ -45,8 +43,8 @@ async function inserirCliente()
         toast.show();
     }
 
-    document.querySelector('#insert-nome').value = "";
-    document.querySelector('#insert-email').value = "";
+    document.querySelector('#inserir-nome').value = "";
+    document.querySelector('#inserir-email').value = "";
 
 }
 
@@ -100,43 +98,15 @@ async function carregarDados()
 
 async function consultarCliente() 
 {
-    table = new DataTable('#tabela', 
+    let id = this.value;
+    const consulta = doc(db, "cliente", id);
+    const resultado = await getDoc(consulta);
+
+    if(resultado.exists())
     {
-        language: {
-            url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-        },
-    });
-    const q = query(collection(db, "cliente"));
-    const resultado = await getDocs(q);
-
-    resultado.forEach(
-        (dados) => {
-            table.row.add([
-                dados.data().nome, dados.data().email,
-                `<button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
-                    data-bs-target="#consultarModal" value="${dados.id}">
-                    View
-                </button>
-                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                    data-bs-target="#alterarModal" value="${dados.id}">
-                    Modify
-                </button>
-                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                    data-bs-target="#excluirModal" value="${dados.id}">
-                    Delete
-                </button>`
-            ]).draw(false);
-            table.column(0).data().sort();
-        }
-    );
-    
-    const btnConsultar = Array.from(document.getElementsByClassName('btn-outline-info'));
-    const btnAlterar = Array.from(document.getElementsByClassName('btn-outline-warning'));
-    const btnDeletar = Array.from(document.getElementsByClassName('btn-outline-danger'));
-
-    btnDeletar.forEach(btn => { btn.addEventListener('click', deletarCliente) });
-    btnAlterar.forEach(btn => { btn.addEventListener('click', alterarCliente) });
-    btnConsultar.forEach(btn => { btn.addEventListener('click', consultarCliente) });
+        document.getElementById("consultar-nome").innerHTML = resultado.data().nome;
+        document.getElementById("consultar-email").innerHTML = resultado.data().email;
+    }
 }
 
 /*===========================================================*/
@@ -163,8 +133,6 @@ async function deletarClienteBD()
         await deleteDoc(doc(db, "cliente", id));
         const toast = new bootstrap.Toast(document.getElementById("toastDeletarSucesso"));
         toast.show();
-        table.rows().remove().draw();
-        table.destroy();
         carregarDados();
     } 
     catch (e)
@@ -201,8 +169,6 @@ async function alterarClienteBD()
         await updateDoc(cliente, {nome: valor_nome, email: valor_email} );
         const toast = new bootstrap.Toast(document.getElementById("toastAlterarSucesso"));
         toast.show();
-        table.rows().remove().draw();
-        table.destroy();
         carregarDados();
     } 
     catch (e)

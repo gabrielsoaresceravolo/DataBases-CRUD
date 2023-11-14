@@ -40,8 +40,6 @@ async function inserirProduto()
 
         const toast = new bootstrap.Toast(document.querySelector("#toastInserirSucesso"));
         toast.show();
-        table.rows().remove().draw
-        table.destroy();
         carregarDados();
 
     }
@@ -109,44 +107,18 @@ async function carregarDados()
 
 async function consultarProduto() 
 {
-    table = new DataTable('#tabela', 
+    let id = this.value;
+    const consulta = doc(db, "produto", id);
+    const resultado = await getDoc(consulta);
+
+    if(resultado.exists())
     {
-        language: {
-            url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-        },
-    });
-
-    const q = query(collection(db, "produto"));
-    const resultado = await getDocs(q);
-
-    resultado.forEach(
-        (dados) => {
-            table.row.add([
-                dados.data().nome, dados.data().descricao, dados.data().valor_preco, dados.data().valor_maxEstoque, dados.data().valor_minEstoque,
-                `<button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
-                    data-bs-target="#consultarModal" value="${dados.id}">
-                    View
-                </button>
-                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                    data-bs-target="#alterarModal" value="${dados.id}">
-                    Modify
-                </button>
-                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                    data-bs-target="#excluirModal" value="${dados.id}">
-                    Delete
-                </button>`
-            ]).draw(false);
-            table.column(0).data().sort();
-        }
-    );
-    
-    const btnConsultar = Array.from(document.getElementsByClassName('btn-outline-info'));
-    const btnAlterar = Array.from(document.getElementsByClassName('btn-outline-warning'));
-    const btnDeletar = Array.from(document.getElementsByClassName('btn-outline-danger'));
-
-    btnDeletar.forEach(btn => { btn.addEventListener('click', deletarProduto) });
-    btnAlterar.forEach(btn => { btn.addEventListener('click', alterarProduto) });
-    btnConsultar.forEach(btn => { btn.addEventListener('click', consultarProduto) });
+        document.getElementById("consultar-nome").innerHTML = resultado.data().nome;
+        document.getElementById("consultar-descricao").innerHTML = resultado.data().descricao;
+        document.getElementById("consultar-valor").innerHTML = resultado.data().preco;
+        document.getElementById("consultar-maxStock").innerHTML = resultado.data().maxEstoque;
+        document.getElementById("consultar-minStock").innerHTML = resultado.data().minEstoque;
+    }
 }
 
 /*===========================================================*/
@@ -176,8 +148,6 @@ async function deletarProdutoBD()
         await deleteDoc(doc(db, "produto", id));
         const toast = new bootstrap.Toast(document.getElementById("toastDeletarSucesso"));
         toast.show();
-        table.rows().remove().draw();
-        table.destroy();
         carregarDados();
     } 
     catch (e)
@@ -221,8 +191,6 @@ async function alterarProdutoBD()
         await updateDoc(produto, {nome: valor_nome, descricao: valor_descricao, preco: valor_preco, maxEstoque: valor_maxEstoque, minEstoque: valor_minEstoque} );
         const toast = new bootstrap.Toast(document.getElementById("toastAlterarSucesso"));
         toast.show();
-        table.rows().remove().draw();
-        table.destroy();
         carregarDados();
     } 
     catch (e)

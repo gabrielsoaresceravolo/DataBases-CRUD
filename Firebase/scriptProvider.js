@@ -50,8 +50,6 @@ async function inserirFornecedor()
 
         const toast = new bootstrap.Toast(document.querySelector("#toastInserirSucesso"));
         toast.show();
-        table.rows().remove().draw
-        table.destroy();
         carregarDados();
 
     }
@@ -125,44 +123,23 @@ async function carregarDados()
 
 async function consultarFornecedor() 
 {
-    table = new DataTable('#tabela', 
+    let id = this.value;
+    const consulta = doc(db, "fornecedor", id);
+    const resultado = await getDoc(consulta);
+
+    if(resultado.exists())
     {
-        language: {
-            url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-        },
-    });
-
-    const q = query(collection(db, "fornecedor"));
-    const resultado = await getDocs(q);
-
-    resultado.forEach(
-        (dados) => {
-            table.row.add([
-                dados.data().nome, dados.data().dados_CNPJ, dados.data().responsavel, dados.data().razao, dados.data().endereco, dados.data().numero, dados.data().cidade, dados.data().estado, dados.data().email, dados.data().telefone, 
-                `<button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
-                    data-bs-target="#consultarModal" value="${dados.id}">
-                    View
-                </button>
-                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                    data-bs-target="#alterarModal" value="${dados.id}">
-                    Modify
-                </button>
-                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                    data-bs-target="#excluirModal" value="${dados.id}">
-                    Delete
-                </button>`
-            ]).draw(false);
-            table.column(0).data().sort();
-        }
-    );
-    
-    const btnConsultar = Array.from(document.getElementsByClassName('btn-outline-info'));
-    const btnAlterar = Array.from(document.getElementsByClassName('btn-outline-warning'));
-    const btnDeletar = Array.from(document.getElementsByClassName('btn-outline-danger'));
-
-    btnDeletar.forEach(btn => { btn.addEventListener('click', deletarFornecedor) });
-    btnAlterar.forEach(btn => { btn.addEventListener('click', alterarFornecedor) });
-    btnConsultar.forEach(btn => { btn.addEventListener('click', consultarFornecedor) });
+        document.getElementById("consultar-nome").innerHTML = resultado.data().nome;
+        document.getElementById("consultar-CNPJ").innerHTML = resultado.data().CNPJ;
+        document.getElementById("consultar-responsavel").innerHTML = resultado.data().responsavel;
+        document.getElementById("consultar-razao").innerHTML = resultado.data().razao;
+        document.getElementById("consultar-endereco").innerHTML = resultado.data().endereco;
+        document.getElementById("consultar-numero").innerHTML = resultado.data().numero;
+        document.getElementById("consultar-cidade").innerHTML = resultado.data().cidade;
+        document.getElementById("consultar-estado").innerHTML = resultado.data().estado;
+        document.getElementById("consultar-email").innerHTML = resultado.data().email;
+        document.getElementById("consultar-telefone").innerHTML = resultado.data().telefone;
+    }
 }
 
 /*===========================================================*/
@@ -197,8 +174,6 @@ async function deletarFornecedorBD()
         await deleteDoc(doc(db, "fornecedor", id));
         const toast = new bootstrap.Toast(document.getElementById("toastDeletarSucesso"));
         toast.show();
-        table.rows().remove().draw();
-        table.destroy();
         carregarDados();
     } 
     catch (e)
@@ -252,8 +227,6 @@ async function alterarFornecedorBD()
         await updateDoc(fornecedor, {nome: valor_nome, dados_CNPJ: valor_CNPJ, responsavel: valor_responsavel, razao: valor_razao, endereco: valor_endereco, numero: valor_numero, cidade:valor_cidade, estado: valor_estado, email: valor_email, telefone: valor_telefone} );
         const toast = new bootstrap.Toast(document.getElementById("toastAlterarSucesso"));
         toast.show();
-        table.rows().remove().draw();
-        table.destroy();
         carregarDados();
     } 
     catch (e)
