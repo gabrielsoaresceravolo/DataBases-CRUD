@@ -4,19 +4,33 @@
     {
         if(isset($_POST['btnEnviar']))
         {
-            $nome = $_POST['nome'];
+            $fornecedor = $_POST['fornecedor'];
+            $CNPJ = $_POST['CNPJ'];
+            $responsavel = $_POST['responsavel'];
+            $razao = $_POST['razao'];
+            $endereco = $_POST['endereco'];
+            $cidade = $_POST['cidade'];
+            $estado = $_POST['estado'];
             $email = $_POST['email'];
+            $telefone = $_POST['telefone'];
 
             $curl = curl_init();
             $url = "https://sa-east-1.aws.data.mongodb-api.com/app/data-llqkk/endpoint/data/v1/action/insertOne";
             $dadosCliente = array(
-                "nome" => $nome,
-                "email" => $email
+                "fornecedor" => $fornecedor,
+                "CNPJ" => $CNPJ,
+                "responsavel" => $responsavel,
+                "razao" => $razao,
+                "endereco" => $endereco,
+                "cidade" => $cidade,
+                "estado" => $estado,
+                "email" => $email,
+                "telefone" => $telefone
             );
             $dadosCorpo = array(
                 "dataSource" => "Cluster0",
                 "database" => "primeiro_banco",
-                "collection" => "clientes",
+                "collection" => "fornecedores",
                 "document" => $dadosCliente
             );
             $dadosCorpo = json_encode($dadosCorpo);

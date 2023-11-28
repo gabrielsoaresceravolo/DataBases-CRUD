@@ -5,18 +5,24 @@
         if(isset($_POST['btnEnviar']))
         {
             $nome = $_POST['nome'];
-            $email = $_POST['email'];
+            $descricao = $_POST['descricao'];
+            $valor = $_POST['valor'];
+            $estoqueMax = $_POST['estoqueMax'];
+            $estoqueMin = $_POST['estoqueMin'];
 
             $curl = curl_init();
             $url = "https://sa-east-1.aws.data.mongodb-api.com/app/data-llqkk/endpoint/data/v1/action/insertOne";
             $dadosCliente = array(
                 "nome" => $nome,
-                "email" => $email
+                "descricao" => $descricao,
+                "valor" => $valor,
+                "estoqueMax" => $estoqueMax,
+                "estoqueMin" => $estoqueMin
             );
             $dadosCorpo = array(
                 "dataSource" => "Cluster0",
                 "database" => "primeiro_banco",
-                "collection" => "clientes",
+                "collection" => "produtos",
                 "document" => $dadosCliente
             );
             $dadosCorpo = json_encode($dadosCorpo);
@@ -36,3 +42,10 @@
         }
     }
 ?>
+
+Nome
+Descrição
+Valor
+Estoque Máximo
+Estoque Mínimo
+Ação

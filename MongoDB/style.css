@@ -1,12 +1,19 @@
 body 
 {
     height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .dark-theme
 {
     background-color: #495057;
+}
+
+.nav-center
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
