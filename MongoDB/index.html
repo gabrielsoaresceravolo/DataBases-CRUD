@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>MongoBD - Home</title>
+</head>
+<body>
+
+<main>
+  <div class="container" style="background-color: #495057; color:white; margin: 15px">
+
+    <form action="recebeDados_cliente.php" method="POST">
+      <div class="row">
+        <div class="col">
+          <label for="nome" class="form-label" style="margin-top: 10px">Name:</label>
+          <input type="text" class="form-control" name="nome" id="nome">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="email" class="form-label" style="margin-top: 10px">Email:</label>
+          <input type="text" class="form-control" name="email" id="email">
+        </div>
+      </div>
+
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-danger" type="Submit" name="btnEnviar" style="margin: 30px 0 15px; width: 100%">Submit</button>
+          </div>
+        </div>
+    </form>
+
+  </div>
+</main>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
